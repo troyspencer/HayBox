@@ -26,7 +26,7 @@ GpioButtonMapping button_mappings[] = {
 
     { BTN_MB1, 11 }, // Start
     { BTN_MB2, 0 }, // Home
-    { BTN_MB3, 11 }, // Select
+    { BTN_MB3, 10 }, // Select
 
     { BTN_RT1, 14 }, // A
     { BTN_RT2, 15 }, // C-Down
