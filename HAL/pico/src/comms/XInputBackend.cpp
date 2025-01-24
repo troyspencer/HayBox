@@ -59,10 +59,10 @@ void XInputBackend::SendReport() {
     _report.ls = _outputs.leftStickClick;
     _report.rs = _outputs.rightStickClick;
 
-    _report.lx = (_outputs.leftStickX - ANALOG_STICK_NEUTRAL) * ANALOG_STICK_RANGE;
-    _report.ly = (_outputs.leftStickY - ANALOG_STICK_NEUTRAL) * ANALOG_STICK_RANGE;
-    _report.rx = (_outputs.rightStickX - ANALOG_STICK_NEUTRAL) * ANALOG_STICK_RANGE;
-    _report.ry = (_outputs.rightStickY - ANALOG_STICK_NEUTRAL) * ANALOG_STICK_RANGE;
+    _report.lx = (_outputs.leftStickX - ANALOG_STICK_NEUTRAL - ANALOG_STICK_MIN) * ANALOG_STICK_RANGE + 2 * _outputs.leftStickX;
+    _report.ly = (_outputs.leftStickY - ANALOG_STICK_NEUTRAL - ANALOG_STICK_MIN) * ANALOG_STICK_RANGE + 2 * _outputs.leftStickY;
+    _report.rx = (_outputs.rightStickX - ANALOG_STICK_NEUTRAL - ANALOG_STICK_MIN) * ANALOG_STICK_RANGE + 2 * _outputs.rightStickX;
+    _report.ry = (_outputs.rightStickY - ANALOG_STICK_NEUTRAL - ANALOG_STICK_MIN) * ANALOG_STICK_RANGE + 2 * _outputs.rightStickY;
 
     _xinput->sendReport(&_report);
 }
