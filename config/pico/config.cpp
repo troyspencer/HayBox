@@ -24,8 +24,8 @@ GpioButtonMapping button_mappings[] = {
     { BTN_LT1, 6 }, // ModX
     { BTN_LT2, 7 }, // ModY 
 
-    { BTN_MB1, 0 }, // Start
-    { BTN_MB2, 10 }, // Home
+    { BTN_MB1, 11 }, // Start
+    { BTN_MB2, 0 }, // Home
     { BTN_MB3, 11 }, // Select
 
     { BTN_RT1, 14 }, // A

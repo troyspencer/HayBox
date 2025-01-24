@@ -5,6 +5,11 @@
 
 #include <Adafruit_USBD_XInput.hpp>
 
+#define ANALOG_STICK_MIN 1
+#define ANALOG_STICK_NEUTRAL 128
+#define ANALOG_STICK_RANGE 256
+#define ANALOG_STICK_MAX 255
+
 XInputBackend::XInputBackend(
     InputState &inputs,
     InputSource **input_sources,
@@ -54,10 +59,10 @@ void XInputBackend::SendReport() {
     _report.ls = _outputs.leftStickClick;
     _report.rs = _outputs.rightStickClick;
 
-    _report.lx = (_outputs.leftStickX - 128) * 65535 / 255 + 128;
-    _report.ly = (_outputs.leftStickY - 128) * 65535 / 255 + 128;
-    _report.rx = (_outputs.rightStickX - 128) * 65535 / 255 + 128;
-    _report.ry = (_outputs.rightStickY - 128) * 65535 / 255 + 128;
+    _report.lx = (_outputs.leftStickX - ANALOG_STICK_NEUTRAL - ANALOG_STICK_MIN) * ANALOG_STICK_RANGE + 2 * _outputs.leftStickX;
+    _report.ly = (_outputs.leftStickY - ANALOG_STICK_NEUTRAL - ANALOG_STICK_MIN) * ANALOG_STICK_RANGE + 2 * _outputs.leftStickY;
+    _report.rx = (_outputs.rightStickX - ANALOG_STICK_NEUTRAL - ANALOG_STICK_MIN) * ANALOG_STICK_RANGE + 2 * _outputs.rightStickX;
+    _report.ry = (_outputs.rightStickY - ANALOG_STICK_NEUTRAL - ANALOG_STICK_MIN) * ANALOG_STICK_RANGE + 2 * _outputs.rightStickY;
 
     _xinput.sendReport(&_report);
 }
