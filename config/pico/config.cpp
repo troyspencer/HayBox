@@ -74,7 +74,7 @@ void setup() {
     // Turn on LED to indicate firmware booted.
     gpio_init(PICO_DEFAULT_LED_PIN);
     gpio_set_dir(PICO_DEFAULT_LED_PIN, GPIO_OUT);
-    gpio_put(PICO_DEFAULT_LED_PIN, 1);
+    gpio_put(PICO_DEFAULT_LED_PIN, 0);
 
     // Attempt to load config, or write default config to flash if failed to load config.
     if (inputs.rf5 || !persistence.LoadConfig(config)) { //hold R on plugin to overwrite config
