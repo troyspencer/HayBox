@@ -61,7 +61,7 @@ void Rivals2::UpdateAnalogOutputs(const InputState &inputs, OutputState &outputs
     bool shield_button_pressed = inputs.lf4 || inputs.rf5; // if L or R are pressed
 
     if (directions.diagonal && !shield_button_pressed) { //added this conditional to give joystick accurate diagonals rather than (+/- 1.2, 1.2) should be (0.87~, 0.87~)
-        outputs.leftStickX = 128 + (directions.x * 92); // 92 (0.78 in-game), reduced below 0.8 to allow crouch tilts/crouch turn-around tilts
+        outputs.leftStickX = 128 + (directions.x * (directions.y <= 0 ? 92 : 96)); // 92 (0.78 in-game), reduced below 0.8 to allow crouch tilts/crouch turn-around tilts
         outputs.leftStickY = 128 + (directions.y * 96);//Y value 0.83. >0.8 allows fast fall
     }
 
