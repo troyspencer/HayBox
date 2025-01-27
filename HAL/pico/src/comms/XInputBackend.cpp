@@ -37,11 +37,13 @@ int16_t XInputBackend::ScaleValue(uint8_t input) {
     // 3 -> 32511
 
     int8_t buffer = 0;
-    if (input < 128 - 84) {
+    const uint8_t lowBuffer = 63;
+    const uint8_t highBuffer = 126;
+    if (input < 128 - highBuffer) {
         buffer = -2;
-    } else if (input < 128 - 42) {
+    } else if (input < 128 - lowBuffer) {
         buffer = -1;
-    } else if (input >= 128 + 64) {
+    } else if (input > 128 + highBuffer) {
         buffer = 1; 
     }
 
