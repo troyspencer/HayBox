@@ -28,7 +28,7 @@ CommunicationBackendId XInputBackend::BackendId() {
     return COMMS_BACKEND_XINPUT;
 }
 
-int16_t ScaleValue(uint8_t input) {
+int16_t XInputBackend::ScaleValue(uint8_t input) {
 
     // 128 -> 0
     // 1 -> -32768
