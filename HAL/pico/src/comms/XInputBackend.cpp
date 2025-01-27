@@ -28,6 +28,26 @@ CommunicationBackendId XInputBackend::BackendId() {
     return COMMS_BACKEND_XINPUT;
 }
 
+int8_t ScaleValue(uint8_t input) {
+
+    // 128 -> 0
+    // 1 -> -32768
+    // 255 -> 32767
+    // 2 -> -32512
+    // 3 -> 32511
+
+    int8_t buffer = 0;
+    if (input < 128 - 84) {
+        buffer = -2;
+    } else if (input < 128 - 42) {
+        buffer = -1;
+    } else if (input >= 128 + 64) {
+        buffer = 1; 
+    }
+
+    return input * 258 - 33024 + buffer;
+}
+
 void XInputBackend::SendReport() {
     ScanInputs(InputScanSpeed::SLOW);
     ScanInputs(InputScanSpeed::MEDIUM);
@@ -59,10 +79,10 @@ void XInputBackend::SendReport() {
     _report.ls = _outputs.leftStickClick;
     _report.rs = _outputs.rightStickClick;
 
-    _report.lx = (_outputs.leftStickX - ANALOG_STICK_NEUTRAL - ANALOG_STICK_MIN) * ANALOG_STICK_RANGE + 2 * _outputs.leftStickX;
-    _report.ly = (_outputs.leftStickY - ANALOG_STICK_NEUTRAL - ANALOG_STICK_MIN) * ANALOG_STICK_RANGE + 2 * _outputs.leftStickY;
-    _report.rx = (_outputs.rightStickX - ANALOG_STICK_NEUTRAL - ANALOG_STICK_MIN) * ANALOG_STICK_RANGE + 2 * _outputs.rightStickX;
-    _report.ry = (_outputs.rightStickY - ANALOG_STICK_NEUTRAL - ANALOG_STICK_MIN) * ANALOG_STICK_RANGE + 2 * _outputs.rightStickY;
+    _report.lx = ScaleValue(_outputs.leftStickX);
+    _report.ly = ScaleValue(_outputs.leftStickY);
+    _report.rx = ScaleValue(_outputs.rightStickX);
+    _report.ry = ScaleValue(_outputs.rightStickY);
 
     _xinput.sendReport(&_report);
 }
